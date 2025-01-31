@@ -44,7 +44,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //        cell?.groupLabel.text = groups[index]
 //        cell?.chartImageView.image = UIImage(named: "bar_chart")
         cell!.groupLabel.text = self.groups[indexPath.row]
-        hh
+        
         return cell!
     }
     
