@@ -1,48 +1,27 @@
-//
-//  FirstViewController.swift
-//  habits_app
-//
-//  Created by Home PC on 1/30/25.
-//
-
 import UIKit
 
-class FirstViewController:UIViewController {
-    
+class FirstViewController: UIViewController {
+
+    private let infoLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Welcome to FirstViewController"
+        label.font = UIFont.systemFont(ofSize: 22, weight: .medium)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("FirstViewController - viewdidLoad")
-        self.addSquare()
+        view.backgroundColor = .white
+        setupLabel()
     }
-    
-    func addSquare() {
-        let square = UIView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
-        square.backgroundColor = .blue
-        self.view.addSubview(square)
-        
-        
-        let square2 = UIView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
-        square.backgroundColor = .blue
-        self.view.addSubview(square2)
+
+    private func setupLabel() {
+        view.addSubview(infoLabel)
+        NSLayoutConstraint.activate([
+            infoLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            infoLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        print("FirstViewController - viewDidAppear")
-    }
-        
-    override func viewWillDisappear(_ animated: Bool) {
-            print("FirstViewController - viewWillDisappear")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        print("FirstViewController - viewWillAppear")
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        print("FirstViewController - viewDidDisappear")
-    }
-    
-    
-   
-    
 }

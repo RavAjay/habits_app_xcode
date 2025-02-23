@@ -50,21 +50,30 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("\(self.groups[indexPath.row])")
-        //go to anothrer view controller and print the cell title in that view controller
-        //three view controllers
-        if indexPath.row == 0 {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            if let viewController = storyboard.instantiateViewController(withIdentifier: "detailsViewController") as? DetailsViewController {
-                self.navigationController?.pushViewController(viewController, animated: true)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let viewControllerIdentifiers = [
+            "MathViewController",
+            "PhysicsViewController",
+            "ComputerScienceViewController",
+            "MachineLearningViewController"
+        ]
+        
+        // ✅ Check if the index is valid
+        if indexPath.row < viewControllerIdentifiers.count {
+            let selectedIdentifier = viewControllerIdentifiers[indexPath.row]
+            
+            if let selectedVC = storyboard.instantiateViewController(withIdentifier: selectedIdentifier) as? UIViewController {
+                navigationController?.pushViewController(selectedVC, animated: true)
             }
-           
-        }else {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            if let viewController = storyboard.instantiateViewController(withIdentifier: "First") as? FirstViewController {
-                self.navigationController?.pushViewController(viewController, animated: true)
+        } else {
+            // 🚀 Fallback: Navigate to FirstViewController if no valid index
+            if let firstVC = storyboard.instantiateViewController(withIdentifier: "First") as? FirstViewController {
+                navigationController?.pushViewController(firstVC, animated: true)
             }
         }
+        
+        // ✅ Deselect the row after selection
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

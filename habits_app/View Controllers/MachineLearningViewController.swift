@@ -1,13 +1,10 @@
 import UIKit
 
-class DetailsViewController: UIViewController {
-
-    var selectedGroup: String?
-
-    private let titleLabel: UILabel = {
+class MachineLearningViewController: UIViewController {
+    private let label: UILabel = {
         let label = UILabel()
+        label.text = "Welcome to Machine Learning Class"
         label.font = UIFont.boldSystemFont(ofSize: 24)
-        label.textColor = .black
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -16,15 +13,15 @@ class DetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        title = "Machine Learning View Controller"
         setupUI()
-        titleLabel.text = selectedGroup ?? "No Group Selected"
     }
 
     private func setupUI() {
-        view.addSubview(titleLabel)
+        view.addSubview(label)
         NSLayoutConstraint.activate([
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
 }
