@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="103" width="393" height="715"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="de7-MY-9zP" customClass="CustomTableViewCell" customModule="habits_app" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupTVCell" id="de7-MY-9zP" customClass="CustomTableViewCell" customModule="habits_app" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="de7-MY-9zP" id="BPW-iV-Ctg">
@@ -52,7 +52,7 @@
         <!--Math-->
         <scene sceneID="UN8-8z-Dv1">
             <objects>
-                <viewController storyboardIdentifier="detailsViewController" title="Math" id="4kw-9V-27k" customClass="MathViewController" customModule="habits_app" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MathViewController" title="Math" id="4kw-9V-27k" customClass="MathViewController" customModule="habits_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0ft-Mj-vfl">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -68,8 +68,8 @@
         <!--Physics-->
         <scene sceneID="O4R-5u-pXf">
             <objects>
-                <viewController title="Physics" id="zOi-TI-N6i" customClass="PhysicsViewController" customModule="habits_app" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="zTN-tn-0mM">
+                <viewController storyboardIdentifier="PhysicsViewController" title="Physics" id="zOi-TI-N6i" customClass="PhysicsViewController" customModule="habits_app" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zTN-tn-0mM" customClass="Physics">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="2nS-jk-EHS"/>
@@ -84,7 +84,7 @@
         <!--CompSci-->
         <scene sceneID="asm-a1-PQo">
             <objects>
-                <viewController title="CompSci" id="f7e-Ge-FXI" customClass="ComputerScienceViewController" customModule="habits_app" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ComputerScienceViewController" title="CompSci" id="f7e-Ge-FXI" customClass="ComputerScienceViewController" customModule="habits_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LM1-RH-y0J">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -117,7 +117,7 @@
         <!--ML-->
         <scene sceneID="zGX-XW-6K1">
             <objects>
-                <viewController title="ML" id="epF-Xd-PjS" customClass="MachineLearningViewController" customModule="habits_app" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MachineLearningViewController" title="ML" id="epF-Xd-PjS" customClass="MachineLearningViewController" customModule="habits_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xcV-x7-bxi">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

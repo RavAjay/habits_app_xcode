@@ -24,10 +24,7 @@ class CustomTableViewCell: UITableViewCell {
     // Circular Image View
     let chartImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.borderWidth = 2.0
-        imageView.layer.cornerRadius = 22 // Half of the width/height to make it circular
-        imageView.clipsToBounds = true
-        imageView.layer.borderColor = UIColor.white.cgColor
+        imageView.contentMode = .scaleAspectFit  // Adjust image scaling
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -69,8 +66,9 @@ class CustomTableViewCell: UITableViewCell {
         chartImageView.heightAnchor.constraint(equalToConstant: 44).isActive = true
         
         // Group Label Constraints (Top Text)
-        groupLabel.leadingAnchor.constraint(equalTo: chartImageView.trailingAnchor, constant: 15).isActive = true
-        groupLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
+        // ✅ Updated Group Label Constraints
+        groupLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
+        groupLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         groupLabel.trailingAnchor.constraint(equalTo: arrowImageView.leadingAnchor, constant: -10).isActive = true
         
         // Details Label Constraints (Bottom Text)
