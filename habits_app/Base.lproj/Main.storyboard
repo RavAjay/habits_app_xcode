@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tV3-KV-mXF">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -40,16 +41,93 @@
                             <constraint firstItem="vqm-PM-h2P" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Whe-O5-zbv"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="syY-ji-ces">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="gPr-41-c3B">
+                            <color key="tintColor" systemColor="labelColor"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="vqm-PM-h2P" id="Xra-Ys-PJO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-874" y="-107"/>
+            <point key="canvasLocation" x="54" y="-146"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="vcJ-s8-AOX">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tV3-KV-mXF" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TNQ-no-Z5o">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="fss-nF-OCZ" kind="relationship" relationship="rootViewController" id="rR7-0g-DQx"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qe6-qp-ZoB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-758" y="-146"/>
+        </scene>
+        <!--People View Controller-->
+        <scene sceneID="rCa-HR-Q1j">
+            <objects>
+                <viewController id="fss-nF-OCZ" customClass="PeopleViewController" customModule="habits_app" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="o8a-KJ-bbV">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="o85-y4-U1F">
+                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CUG-zv-8mf">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="TopLeft" reuseIdentifier="peopleCell" id="1Hz-Zl-g6N">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Gs3-QF-x1j">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="fss-nF-OCZ" id="wwQ-QG-xnV"/>
+                                    <outlet property="delegate" destination="fss-nF-OCZ" id="fZl-WS-5us"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="5Ei-2Y-iw4"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="o85-y4-U1F" firstAttribute="top" secondItem="5Ei-2Y-iw4" secondAttribute="top" id="HYJ-Fv-AZy"/>
+                            <constraint firstItem="5Ei-2Y-iw4" firstAttribute="trailing" secondItem="o85-y4-U1F" secondAttribute="trailing" id="aYA-YO-v9k"/>
+                            <constraint firstItem="5Ei-2Y-iw4" firstAttribute="bottom" secondItem="o85-y4-U1F" secondAttribute="bottom" id="cM8-ee-UdI"/>
+                            <constraint firstItem="o85-y4-U1F" firstAttribute="leading" secondItem="5Ei-2Y-iw4" secondAttribute="leading" id="qpI-sf-O0g"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="T8u-vP-jJA"/>
+                    <connections>
+                        <outlet property="peopleCollectionView" destination="o85-y4-U1F" id="nB0-vq-SI6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QEp-7p-qQL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="917" y="-146"/>
         </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
