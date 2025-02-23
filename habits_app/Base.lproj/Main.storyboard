@@ -49,10 +49,10 @@
             </objects>
             <point key="canvasLocation" x="623.66412213740455" y="-282.3943661971831"/>
         </scene>
-        <!--Second View Controller-->
+        <!--Math-->
         <scene sceneID="UN8-8z-Dv1">
             <objects>
-                <viewController storyboardIdentifier="detailsViewController" id="4kw-9V-27k" customClass="DetailsViewController" customModule="habits_app" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="detailsViewController" title="Math" id="4kw-9V-27k" customClass="MathViewController" customModule="habits_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0ft-Mj-vfl">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -65,10 +65,10 @@
             </objects>
             <point key="canvasLocation" x="1731" y="-282"/>
         </scene>
-        <!--Third View Controller-->
+        <!--Physics-->
         <scene sceneID="O4R-5u-pXf">
             <objects>
-                <viewController storyboardIdentifier="First" id="zOi-TI-N6i" customClass="FirstViewController" customModule="habits_app" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Physics" id="zOi-TI-N6i" customClass="PhysicsViewController" customModule="habits_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zTN-tn-0mM">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -81,10 +81,10 @@
             </objects>
             <point key="canvasLocation" x="2636" y="-282"/>
         </scene>
-        <!--View Controller-->
+        <!--CompSci-->
         <scene sceneID="asm-a1-PQo">
             <objects>
-                <viewController id="f7e-Ge-FXI" sceneMemberID="viewController">
+                <viewController title="CompSci" id="f7e-Ge-FXI" customClass="ComputerScienceViewController" customModule="habits_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LM1-RH-y0J">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -113,6 +113,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eTa-s2-ODZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-303.05343511450383" y="-282.3943661971831"/>
+        </scene>
+        <!--ML-->
+        <scene sceneID="zGX-XW-6K1">
+            <objects>
+                <viewController title="ML" id="epF-Xd-PjS" customClass="MachineLearningViewController" customModule="habits_app" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xcV-x7-bxi">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="1Gv-Oq-nBZ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Second View Controller" id="ygD-T3-al9"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RQQ-A0-V5O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-303" y="405"/>
         </scene>
     </scenes>
     <resources>
