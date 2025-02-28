@@ -88,8 +88,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             navigationController?.pushViewController(selectedVC, animated: true)
         } else {
             // 🚀 Fallback: Navigate to FirstViewController if no valid index
-            if let firstVC = storyboard.instantiateViewController(withIdentifier: "First") as? FirstViewController {
-                navigationController?.pushViewController(firstVC, animated: true)
+            if let optionsVC = storyboard.instantiateViewController(withIdentifier: "Options") as? OptionsViewController {
+                navigationController?.pushViewController(optionsVC, animated: true)
             }
         }
         
