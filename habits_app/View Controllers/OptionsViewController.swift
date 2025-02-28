@@ -2,19 +2,23 @@ import UIKit
 
 class OptionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    var options: [(title: String, value: String, progress: Float, leftPercent: String, rightPercent: String)] = [
-        ("Doctor's visit", "$120", 0.9, "90%", "10%"),
-        ("Gym membership", "$50", 0.7, "70%", "30%"),
-        ("Reading", "$0", 0.95, "95%", "5%")
-    ]
-
     private let tableView = UITableView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
         title = "Options"
+
         setupTableView()
+
+        // ✅ Add "+" and "-" buttons
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addHabitTapped))
+        addButton.tintColor = .white
+
+        let removeButton = UIBarButtonItem(title: "−", style: .plain, target: self, action: #selector(toggleEditingMode))
+        removeButton.tintColor = .white  // ✅ Ensure visibility on black background
+
+        navigationItem.rightBarButtonItems = [addButton, removeButton]
     }
 
     private func setupTableView() {
@@ -34,8 +38,18 @@ class OptionsViewController: UIViewController, UITableViewDataSource, UITableVie
         ])
     }
 
+    @objc private func addHabitTapped() {
+        DataManager.shared.addHabit(title: "New Habit", value: "$0", progress: 0.5, leftPercentage: "50%", rightPercentage: "50%")
+        tableView.reloadData()  // ✅ Refresh UI after adding
+    }
+    
+    @objc private func toggleEditingMode() {
+        tableView.setEditing(!tableView.isEditing, animated: true)
+    }
+
+    // ✅ TableView DataSource Methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return options.count
+        return DataManager.shared.habits.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -43,12 +57,31 @@ class OptionsViewController: UIViewController, UITableViewDataSource, UITableVie
             return UITableViewCell()
         }
 
-        let option = options[indexPath.row]
-        cell.configure(title: option.title, value: option.value, progress: option.progress, leftPercent: option.leftPercent, rightPercent: option.rightPercent)
+        let habit = DataManager.shared.habits[indexPath.row]
+        cell.configure(title: habit.title, value: habit.value, progress: habit.progress, leftPercent: habit.leftPercentage, rightPercent: habit.rightPercentage)
         return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 180
+    }
+
+    // ✅ Enable row editing (for delete button)
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    // ✅ Handle habit deletion
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("Deleting habit at index: \(indexPath.row)")  // ✅ Debug log
+            DataManager.shared.removeHabit(at: indexPath.row)
+
+            tableView.performBatchUpdates({
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }, completion: { _ in
+                tableView.reloadData()  // ✅ Ensure full update
+            })
+        }
     }
 }
