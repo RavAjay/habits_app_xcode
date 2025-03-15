@@ -10,7 +10,7 @@ class OptionsViewController: UIViewController, UITableViewDataSource, UITableVie
         title = "Options"
 
         setupTableView()
-
+        
         // ✅ Add "+" and "-" buttons
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addHabitTapped))
         addButton.tintColor = .white

@@ -3,15 +3,6 @@ import Foundation
 class DataManager {
     static let shared = DataManager() // ✅ Singleton instance
 
-    // Habit Data Structure
-    struct Habit {
-        let title: String
-        var value: String
-        var progress: Float
-        var leftPercentage: String
-        var rightPercentage: String
-    }
-
     // Array to Store Habits
     private(set) var habits: [Habit] = [
         Habit(title: "Doctor's visit", value: "$120", progress: 0.9, leftPercentage: "90%", rightPercentage: "10%"),
@@ -38,3 +29,9 @@ class DataManager {
         habits[index].rightPercentage = rightPercentage
     }
 }
+
+
+
+
+
+
