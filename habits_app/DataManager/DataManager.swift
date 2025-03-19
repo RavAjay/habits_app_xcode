@@ -7,7 +7,10 @@ class DataManager {
     private(set) var habits: [Habit] = [
         Habit(title: "Doctor's visit", value: "$120", progress: 0.9, leftPercentage: "90%", rightPercentage: "10%"),
         Habit(title: "Gym membership", value: "$50", progress: 0.7, leftPercentage: "70%", rightPercentage: "30%"),
-        Habit(title: "Reading", value: "$0", progress: 0.95, leftPercentage: "95%", rightPercentage: "5%")
+        Habit(title: "Reading", value: "$0", progress: 0.95, leftPercentage: "95%", rightPercentage: "5%"),
+        Habit(title: "Tennis", value: "$120", progress: 0.9, leftPercentage: "90%", rightPercentage: "10%"),
+        Habit(title: "C++", value: "$50", progress: 0.7, leftPercentage: "70%", rightPercentage: "30%"),
+        Habit(title: "Singing", value: "$0", progress: 0.95, leftPercentage: "95%", rightPercentage: "5%")
     ]
 
     // MARK: - CRUD Operations

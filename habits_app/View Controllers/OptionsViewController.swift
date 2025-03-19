@@ -6,8 +6,8 @@ class OptionsViewController: UIViewController, UITableViewDataSource, UITableVie
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Details"  // Set the title for this view controller
         view.backgroundColor = .black
-        title = "Options"
 
         setupTableView()
         
@@ -59,6 +59,7 @@ class OptionsViewController: UIViewController, UITableViewDataSource, UITableVie
 
         let habit = DataManager.shared.habits[indexPath.row]
         cell.configure(title: habit.title, value: habit.value, progress: habit.progress, leftPercent: habit.leftPercentage, rightPercent: habit.rightPercentage)
+        cell.contentView.backgroundColor = .black
         return cell
     }
 
