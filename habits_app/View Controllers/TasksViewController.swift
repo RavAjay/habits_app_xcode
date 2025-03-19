@@ -36,7 +36,7 @@ extension TasksViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TasksTableViewCell
         let habit = habits[indexPath.row]//2
         cell.taskTitleLabel.text = habit.title
-        cell.taskTitleLabel.font = UIFont(name: "PressStart2P-Regular", size: 17)!
+        cell.taskTitleLabel.font = UIFont(name: "arialroundedmtbold", size: 17)!
         return cell
     }
     
