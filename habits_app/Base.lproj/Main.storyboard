@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item-->
+        <!--Details-->
         <scene sceneID="D7O-BZ-1fe">
             <objects>
                 <viewController id="yYk-S7-oi9" customClass="OptionsViewController" customModule="habits_app" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,14 +18,14 @@
                         <viewLayoutGuide key="safeArea" id="Ktu-Bw-ZEU"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="zFg-Cg-IL6"/>
+                    <tabBarItem key="tabBarItem" title="Details" id="zFg-Cg-IL6"/>
                     <navigationItem key="navigationItem" id="VMo-yq-vfj"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rE1-07-PCE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1598" y="153"/>
         </scene>
-        <!--Item-->
+        <!--Daily-->
         <scene sceneID="M2x-3j-pzf">
             <objects>
                 <viewController id="pwK-Hl-ht5" customClass="TasksViewController" customModule="habits_app" customModuleProvider="target" sceneMemberID="viewController">
@@ -78,7 +78,7 @@
                             <constraint firstItem="B9t-1i-3hk" firstAttribute="trailing" secondItem="ZRc-FE-gKm" secondAttribute="trailing" id="dP5-YX-wiR"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="bny-2D-X5g"/>
+                    <tabBarItem key="tabBarItem" title="Daily" id="bny-2D-X5g"/>
                     <connections>
                         <outlet property="tasksTableView" destination="ZRc-FE-gKm" id="53c-6m-8UV"/>
                     </connections>

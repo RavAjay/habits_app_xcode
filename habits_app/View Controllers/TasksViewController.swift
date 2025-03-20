@@ -17,7 +17,6 @@ class TasksViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Daily"  // Set the title for this view controller
         addGradientBackground()
     }
     
@@ -39,8 +38,7 @@ class TasksViewController: UIViewController {
         tasksTableView.backgroundView = backgroundView
     }
     
-   
-    }
+}
 
 //MARK: - Table View Methods
 extension TasksViewController: UITableViewDataSource, UITableViewDelegate {
@@ -50,10 +48,10 @@ extension TasksViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TasksTableViewCell
-        let habit = habits[indexPath.row]//2
+        let habit = habits[indexPath.row]
         cell.taskTitleLabel.text = habit.title
         cell.taskTitleLabel.font = UIFont(name: "ArialRoundedMTBold", size: 20)!
-        cell.backgroundColor = .clear//UIColor.red.withAlphaComponent(1.0/CGFloat(indexPath.row+1))
+        cell.backgroundColor = .clear
         return cell
     }
     
@@ -61,15 +59,18 @@ extension TasksViewController: UITableViewDataSource, UITableViewDelegate {
         return 65
     }
 
-    // Add swipe-to-delete functionality
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Remove the habit from the data model
-            habits.remove(at: indexPath.row)
-
-            // Delete the row from the table view
+    // Swipe action for "Done"
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let doneAction = UIContextualAction(style: .normal, title: "Done") { (action, view, completionHandler) in
+            // Mark the habit as done or remove it from the list (your desired logic)
+            self.habits.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            completionHandler(true)
         }
+        
+        doneAction.backgroundColor = .green // Set the action background color to green
+        
+        let swipeActions = UISwipeActionsConfiguration(actions: [doneAction])
+        return swipeActions
     }
-    
 }

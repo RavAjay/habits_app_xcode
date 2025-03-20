@@ -6,7 +6,6 @@ class OptionsViewController: UIViewController, UITableViewDataSource, UITableVie
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Details"  // Set the title for this view controller
         view.backgroundColor = .black
 
         setupTableView()
@@ -84,5 +83,20 @@ class OptionsViewController: UIViewController, UITableViewDataSource, UITableVie
                 tableView.reloadData()  // ✅ Ensure full update
             })
         }
+    }
+    
+    // Swipe action for "Done"
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let doneAction = UIContextualAction(style: .normal, title: "Done") { (action, view, completionHandler) in
+            // Remove the habit from the data model
+            DataManager.shared.removeHabit(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            completionHandler(true)
+        }
+        
+        doneAction.backgroundColor = .green // Set the action background color to green
+
+        let swipeActions = UISwipeActionsConfiguration(actions: [doneAction])
+        return swipeActions
     }
 }

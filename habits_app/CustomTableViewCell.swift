@@ -38,6 +38,13 @@ class CustomTableViewCell: UITableViewCell {
         return imageView
     }()
     
+    // BarGraph View
+    let barGraphView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = UIColor.black // Match dark theme
@@ -55,6 +62,7 @@ class CustomTableViewCell: UITableViewCell {
         addSubview(groupLabel)
         addSubview(detailsLabel)
         addSubview(arrowImageView)
+        addSubview(barGraphView)
     }
     
     // Set up constraints for all views
@@ -66,7 +74,6 @@ class CustomTableViewCell: UITableViewCell {
         chartImageView.heightAnchor.constraint(equalToConstant: 44).isActive = true
         
         // Group Label Constraints (Top Text)
-        // ✅ Updated Group Label Constraints
         groupLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
         groupLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         groupLabel.trailingAnchor.constraint(equalTo: arrowImageView.leadingAnchor, constant: -10).isActive = true
@@ -81,6 +88,12 @@ class CustomTableViewCell: UITableViewCell {
         arrowImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         arrowImageView.widthAnchor.constraint(equalToConstant: 16).isActive = true
         arrowImageView.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        
+        // Bar Graph View Constraints
+        barGraphView.leadingAnchor.constraint(equalTo: groupLabel.leadingAnchor).isActive = true
+        barGraphView.topAnchor.constraint(equalTo: detailsLabel.bottomAnchor, constant: 8).isActive = true
+        barGraphView.trailingAnchor.constraint(equalTo: groupLabel.trailingAnchor).isActive = true
+        barGraphView.heightAnchor.constraint(equalToConstant: 16).isActive = true
     }
     
     // Configure Cell Data
