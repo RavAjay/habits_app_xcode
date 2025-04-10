@@ -6,11 +6,10 @@
 //
 
 struct Habit {
-    let title: String
+    var title: String
     var value: String
     var progress: Float
     var leftPercentage: String
     var rightPercentage: String
+    var insurance:String
 }
-
-

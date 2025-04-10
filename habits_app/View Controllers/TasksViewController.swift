@@ -17,13 +17,14 @@ class TasksViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addGradientBackground()
+        //addGradientBackground()
+        self.title = "Daily Goals"
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         // Ensure the gradient layer resizes with the table view
-        gradientLayer.frame = tasksTableView.bounds
+       // gradientLayer.frame = tasksTableView.bounds
     }
     
     func addGradientBackground() {
@@ -50,7 +51,7 @@ extension TasksViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TasksTableViewCell
         let habit = habits[indexPath.row]
         cell.taskTitleLabel.text = habit.title
-        cell.taskTitleLabel.font = UIFont(name: "ArialRoundedMTBold", size: 20)!
+        cell.taskTitleLabel.font = FontManager.getFont(size: .medium)
         cell.backgroundColor = .clear
         return cell
     }

@@ -1,31 +1,59 @@
 import UIKit
 
+//MARK: - View Controller Methods
 class OptionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    ///UI Elements
     private let tableView = UITableView()
+    private let separator = UIView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
-
+        //view.backgroundColor = .black
+        
+        self.title = "Goals"
+       
         setupTableView()
+        addTabBarSeparator()  // Add the separator above the tab bar
         
         // ✅ Add "+" and "-" buttons
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addHabitTapped))
-        addButton.tintColor = .white
+        addButton.tintColor = .black
 
-        let removeButton = UIBarButtonItem(title: "−", style: .plain, target: self, action: #selector(toggleEditingMode))
-        removeButton.tintColor = .white  // ✅ Ensure visibility on black background
+//        let removeButton = UIBarButtonItem(title: "−", style: .plain, target: self, action: #selector(toggleEditingMode))
+//        removeButton.tintColor = .white  // ✅ Ensure visibility on black background
 
-        navigationItem.rightBarButtonItems = [addButton, removeButton]
+        navigationItem.rightBarButtonItems = [addButton]
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("Refresh")
+        self.tableView.reloadData()
+    }
+}
 
+//MARK: - Setup Table View Methods
+extension OptionsViewController {
+ 
     private func setupTableView() {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [
+            UIColor(red: 216/255, green: 219/255, blue: 216/255, alpha: 1.0).cgColor,
+            UIColor(red: 226/255, green: 226/255, blue: 224/255, alpha: 1.0).cgColor
+        ]
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
+        gradientLayer.frame = view.bounds
+
+        let gradientView = UIView(frame: view.bounds)
+        gradientView.layer.insertSublayer(gradientLayer, at: 0)
+        view.insertSubview(gradientView, belowSubview: tableView)
+
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.backgroundColor = .black
         tableView.separatorStyle = .none
+        tableView.backgroundColor = .clear
         tableView.register(OptionsTableViewCell.self, forCellReuseIdentifier: "OptionsCell")
 
         view.addSubview(tableView)
@@ -33,20 +61,14 @@ class OptionsViewController: UIViewController, UITableViewDataSource, UITableVie
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -85)
         ])
     }
+}
 
-    @objc private func addHabitTapped() {
-        DataManager.shared.addHabit(title: "New Habit", value: "$0", progress: 0.5, leftPercentage: "50%", rightPercentage: "50%")
-        tableView.reloadData()  // ✅ Refresh UI after adding
-    }
+//MARK: - Table View Delegate and DataSource Methods
+extension OptionsViewController {
     
-    @objc private func toggleEditingMode() {
-        tableView.setEditing(!tableView.isEditing, animated: true)
-    }
-
-    // ✅ TableView DataSource Methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return DataManager.shared.habits.count
     }
@@ -57,46 +79,89 @@ class OptionsViewController: UIViewController, UITableViewDataSource, UITableVie
         }
 
         let habit = DataManager.shared.habits[indexPath.row]
-        cell.configure(title: habit.title, value: habit.value, progress: habit.progress, leftPercent: habit.leftPercentage, rightPercent: habit.rightPercentage)
-        cell.contentView.backgroundColor = .black
+        cell.configure(title: habit.title, value: habit.value, progress: habit.progress, leftPercent: habit.leftPercentage, rightPercent: habit.rightPercentage, insurance: habit.insurance)
+       // cell.contentView.backgroundColor = .black
+       // cell.gradientLayer.frame = cell.cardView.bounds
+       // cell.gradientLayer.cornerRadius = cell.cardView.layer.cornerRadius
         return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 180
     }
-
-    // ✅ Enable row editing (for delete button)
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let goalViewController = GoalViewController()
+       // goalViewController.habit = DataManager.shared.habits[indexPath.row] // Pass selected habit if needed
+        navigationController?.pushViewController(goalViewController, animated: true)
     }
 
-    // ✅ Handle habit deletion
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            print("Deleting habit at index: \(indexPath.row)")  // ✅ Debug log
-            DataManager.shared.removeHabit(at: indexPath.row)
+}
 
-            tableView.performBatchUpdates({
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }, completion: { _ in
-                tableView.reloadData()  // ✅ Ensure full update
-            })
-        }
+//MARK: - Table View Edit Methods
+extension OptionsViewController {
+    
+    @objc private func addHabitTapped() {
+        DataManager.shared.addHabit(title: "New Habit", value: "$0", progress: 0.5, leftPercentage: "50%", rightPercentage: "50%", insurance: "Something")
+        tableView.reloadData()  // ✅ Refresh UI after adding
     }
     
-    // Swipe action for "Done"
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let doneAction = UIContextualAction(style: .normal, title: "Done") { (action, view, completionHandler) in
-            // Remove the habit from the data model
-            DataManager.shared.removeHabit(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-            completionHandler(true)
+    @objc private func toggleEditingMode() {
+        tableView.setEditing(!tableView.isEditing, animated: true)
+    }
+
+   
+    private func editHabit(at indexPath: IndexPath) {
+        let habit = DataManager.shared.habits[indexPath.row]
+        
+        let alertController = UIAlertController(title: "Edit Habit", message: nil, preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.text = habit.title
+        }
+        alertController.addTextField { textField in
+            textField.text = habit.value
+            textField.keyboardType = .numberPad
         }
         
-        doneAction.backgroundColor = .green // Set the action background color to green
-
-        let swipeActions = UISwipeActionsConfiguration(actions: [doneAction])
-        return swipeActions
+        let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
+            guard let title = alertController.textFields?[0].text,
+                  let value = alertController.textFields?[1].text else { return }
+            
+            DataManager.shared.updateHabit(
+                at: indexPath.row,
+                title: title,
+                value: value,
+                progress: habit.progress,
+                leftPercentage: habit.leftPercentage,
+                rightPercentage: habit.rightPercentage
+            )
+            self.tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
     }
+}
+
+//MARK: - Tab Bar Methods
+extension OptionsViewController {
+    private func addTabBarSeparator() {
+        separator.backgroundColor = .gray
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(separator)
+
+        NSLayoutConstraint.activate([
+            separator.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            separator.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            separator.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -84),
+            separator.heightAnchor.constraint(equalToConstant: 1)
+        ])
+    }
+    
 }
