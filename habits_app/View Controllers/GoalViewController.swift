@@ -9,17 +9,26 @@ import UIKit
 
 class GoalViewController: UIViewController {
 
+    var habit: Habit?
+
     private let scrollView = UIScrollView()
     private let contentView = UIView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Goal"
+        self.title = habit?.title ?? "Goal"
         setupUI()
     }
 
     private func setupUI() {
         view.backgroundColor = .white
+
+        // Optional: Add a gradient background to the view for a more modern look
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [UIColor.white.cgColor, UIColor.lightGray.cgColor]
+        gradientLayer.locations = [0.0, 1.0]
+        gradientLayer.frame = view.bounds
+        view.layer.insertSublayer(gradientLayer, at: 0)
 
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -58,12 +67,12 @@ class GoalViewController: UIViewController {
             gridView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             gridView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             gridView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
-            gridView.heightAnchor.constraint(equalToConstant: 300)
+            gridView.heightAnchor.constraint(equalToConstant: 400) // increased height
         ])
 
         let gridStackView = UIStackView()
         gridStackView.axis = .vertical
-        gridStackView.spacing = 5
+        gridStackView.spacing = 10 // Increase spacing between elements
         gridStackView.translatesAutoresizingMaskIntoConstraints = false
         gridView.addSubview(gridStackView)
 
@@ -74,11 +83,41 @@ class GoalViewController: UIViewController {
             gridStackView.bottomAnchor.constraint(equalTo: gridView.bottomAnchor, constant: -10)
         ])
 
-        let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+        // Insert goal title label above the calendar
+        let goalLabel = UILabel()
+        goalLabel.text = "Goal" // Removed "Tracking: " prefix
+        goalLabel.textColor = .darkGray
+        goalLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold) // Use a similar font
+        goalLabel.textAlignment = .center
+        goalLabel.layer.masksToBounds = true
+        goalLabel.layer.cornerRadius = 10 // Rounded corners for a card-like effect
+        goalLabel.backgroundColor = UIColor(white: 0.95, alpha: 1) // Soft background color
+        goalLabel.layer.shadowColor = UIColor.black.cgColor
+        goalLabel.layer.shadowOffset = CGSize(width: 0, height: 2)
+        goalLabel.layer.shadowOpacity = 0.2
+        goalLabel.layer.shadowRadius = 4 // Subtle shadow to make the label stand out
+        goalLabel.translatesAutoresizingMaskIntoConstraints = false
+        gridStackView.addArrangedSubview(goalLabel)
+
+        let today = Date()
         let calendar = Calendar.current
-        let components = calendar.dateComponents([.year, .month], from: Date())
-        let firstDayOfMonth = calendar.date(from: components)!
-        let range = calendar.range(of: .day, in: .month, for: firstDayOfMonth)!
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "LLLL yyyy"
+        let headerLabel = UILabel()
+        headerLabel.text = dateFormatter.string(from: today)
+        headerLabel.textColor = .darkGray // Darker color for better contrast
+        headerLabel.font = UIFont.boldSystemFont(ofSize: 22) // Increase size
+        headerLabel.textAlignment = .center
+        headerLabel.translatesAutoresizingMaskIntoConstraints = false
+        gridStackView.addArrangedSubview(headerLabel)
+
+        NSLayoutConstraint.activate([
+            headerLabel.topAnchor.constraint(equalTo: gridStackView.topAnchor, constant: 10)
+        ])
+
+        let components = calendar.dateComponents([.year, .month], from: today)
+        guard let firstDayOfMonth = calendar.date(from: components),
+              let range = calendar.range(of: .day, in: .month, for: firstDayOfMonth) else { return }
 
         var dayIndex = calendar.component(.weekday, from: firstDayOfMonth) - 1
 
@@ -88,6 +127,7 @@ class GoalViewController: UIViewController {
         weekStack.spacing = 5
         gridStackView.addArrangedSubview(weekStack)
 
+        let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
         for day in days {
             let label = UILabel()
             label.text = day
@@ -95,6 +135,16 @@ class GoalViewController: UIViewController {
             label.textColor = .black
             weekStack.addArrangedSubview(label)
         }
+
+        // Add a separator bar under the weekday labels
+        let separatorBar = UIView()
+        separatorBar.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
+        separatorBar.translatesAutoresizingMaskIntoConstraints = false
+        gridStackView.addArrangedSubview(separatorBar)
+
+        NSLayoutConstraint.activate([
+            separatorBar.heightAnchor.constraint(equalToConstant: 1)
+        ])
 
         var currentWeekStack = UIStackView()
         currentWeekStack.axis = .horizontal
@@ -124,6 +174,8 @@ class GoalViewController: UIViewController {
             dayLabel.layer.cornerRadius = 10
             dayLabel.layer.masksToBounds = true
             dayLabel.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+            dayLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium) // increased font size
+            dayLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true // increased size of day labels
 
             currentWeekStack.addArrangedSubview(dayLabel)
             dayIndex += 1

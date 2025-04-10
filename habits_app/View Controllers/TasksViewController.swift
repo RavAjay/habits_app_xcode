@@ -17,8 +17,8 @@ class TasksViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //addGradientBackground()
         self.title = "Daily Goals"
+        addGradientBackground() // Apply the gradient here
     }
     
     override func viewDidLayoutSubviews() {
@@ -29,14 +29,14 @@ class TasksViewController: UIViewController {
     
     func addGradientBackground() {
         gradientLayer = CAGradientLayer()
-        gradientLayer.frame = tasksTableView.bounds
-        gradientLayer.colors = [UIColor.gray.cgColor, UIColor.gray.cgColor]
+        gradientLayer.frame = view.bounds // Use the view's bounds instead of just the table view's bounds
+        gradientLayer.colors = [UIColor.white.cgColor, UIColor.lightGray.cgColor] // Same gradient as in GoalViewController
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint(x: 1, y: 1)
         
-        let backgroundView = UIView(frame: tasksTableView.bounds)
+        let backgroundView = UIView(frame: view.bounds) // Use the view's bounds here as well
         backgroundView.layer.insertSublayer(gradientLayer, at: 0)
-        tasksTableView.backgroundView = backgroundView
+        view.insertSubview(backgroundView, at: 0) // Insert the background view into the main view hierarchy
     }
     
 }

@@ -93,8 +93,12 @@ extension OptionsViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
+        let habit = DataManager.shared.habits[indexPath.row]
         let goalViewController = GoalViewController()
-       // goalViewController.habit = DataManager.shared.habits[indexPath.row] // Pass selected habit if needed
+        
+        // Pass the selected habit to the GoalViewController
+        goalViewController.habit = habit
+        
         navigationController?.pushViewController(goalViewController, animated: true)
     }
 
